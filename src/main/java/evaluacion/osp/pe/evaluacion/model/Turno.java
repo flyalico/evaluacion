@@ -1,5 +1,6 @@
 package evaluacion.osp.pe.evaluacion.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import evaluacion.osp.pe.evaluacion.model.Estado;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,8 @@ public class Turno implements Serializable {
     private Long id;
 
     @NotNull(message = "no puede estar vacio")
-    @Temporal(TemporalType.TIME)
+    @JsonFormat(pattern = "HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP )
     private Date hora;
 
     @Enumerated(EnumType.STRING)

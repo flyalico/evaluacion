@@ -1,8 +1,9 @@
 package evaluacion.osp.pe.evaluacion.rest;
 
 
-import evaluacion.osp.pe.evaluacion.model.Pelicula;
+
 import evaluacion.osp.pe.evaluacion.model.Turno;
+
 import evaluacion.osp.pe.evaluacion.service.TurnoService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -14,19 +15,23 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/turnos")
 public class TurnoRestController {
+    private static final Logger log = Logger.getLogger(TurnoRestController.class.getName());
     private final TurnoService turnoService;
     public TurnoRestController(TurnoService turnoService){
         this.turnoService = turnoService;
     }
     @PostMapping
-    public ResponseEntity<?> add(@Valid @RequestBody Turno turno, BindingResult result){
+    public ResponseEntity<?> add( @RequestBody Turno turno, BindingResult result){
         Turno turnoNew = null;
         Map<String, Object> response = new HashMap<>();
+        System.out.println("HORA: "+turno.getHora());
+        log.info("HORA HORA HORA: "+turno.getHora());
         if(result.hasErrors()){
 
             List<String> errors = result.getFieldErrors()
