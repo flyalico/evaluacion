@@ -4,6 +4,8 @@ package evaluacion.osp.pe.evaluacion.service;
 
 import evaluacion.osp.pe.evaluacion.model.Pelicula;
 import evaluacion.osp.pe.evaluacion.repository.PeliculaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +27,10 @@ public class PeliculaService {
     }
     public List<Pelicula> findAll(){
         return this.peliculaRepository.findAll();
+    }
+
+    public Page<Pelicula> findAllPageable(Pageable pageable){
+        return this.peliculaRepository.findAll(pageable);
     }
 
     public void delete(Long id){
