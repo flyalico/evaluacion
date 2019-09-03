@@ -1,30 +1,26 @@
 package evaluacion.osp.pe.evaluacion.model;
 
-import evaluacion.osp.pe.evaluacion.model.Estado;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @ToString
 @Entity
-public class Turno implements Serializable {
+public class ItemPelicula implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "no puede estar vacio")
-    @Temporal(TemporalType.TIME)
-    private Date hora;
-
-    @Enumerated(EnumType.STRING)
-    private Estado estado;
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="turno_id")
+    private Turno turno;
 }

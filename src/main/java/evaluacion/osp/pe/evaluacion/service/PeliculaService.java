@@ -20,7 +20,7 @@ public class PeliculaService {
         return this.peliculaRepository.save(pelicula);
     }
     public Pelicula findById(Long id){
-        Pelicula pelicula = this.peliculaRepository.findOne(id);
+        Pelicula pelicula = this.peliculaRepository.findById(id).orElse(null); //.findOne(id);
         return pelicula;
     }
     public List<Pelicula> findAll(){
@@ -28,6 +28,6 @@ public class PeliculaService {
     }
 
     public void delete(Long id){
-        this.peliculaRepository.delete(id);
+        this.peliculaRepository.deleteById(id);
     }
 }
