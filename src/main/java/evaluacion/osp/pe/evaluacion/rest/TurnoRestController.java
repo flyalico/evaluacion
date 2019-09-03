@@ -27,7 +27,7 @@ public class TurnoRestController {
         this.turnoService = turnoService;
     }
     @PostMapping
-    public ResponseEntity<?> add( @RequestBody Turno turno, BindingResult result){
+    public ResponseEntity<?> add(@Valid  @RequestBody Turno turno, BindingResult result){
         Turno turnoNew = null;
         Map<String, Object> response = new HashMap<>();
         System.out.println("HORA: "+turno.getHora());
