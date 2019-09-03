@@ -5,8 +5,8 @@ INSERT INTO pelicula(estado,fecha,nombre) VALUES('INACTIVO', '2018-01-26','X Men
 INSERT INTO pelicula(estado,fecha,nombre) VALUES('INACTIVO', '2018-01-26','Tortugas Ninjas 2');
 INSERT INTO pelicula(estado,fecha,nombre) VALUES('INACTIVO', '2018-01-26','REY LEON');
 
-INSERT INTO turno(estado,hora) VALUES('ACTIVO','08:00:00');
-INSERT INTO turno(estado,hora) VALUES('ACTIVO','09:00:00');
+INSERT INTO turno(estado,hora) VALUES('ACTIVO','8:00:00');
+INSERT INTO turno(estado,hora) VALUES('ACTIVO','9:00:00');
 INSERT INTO turno(estado,hora) VALUES('ACTIVO','10:00:00');
 INSERT INTO turno(estado,hora) VALUES('ACTIVO','14:00:00');
 INSERT INTO turno(estado,hora) VALUES('ACTIVO','16:00:00');

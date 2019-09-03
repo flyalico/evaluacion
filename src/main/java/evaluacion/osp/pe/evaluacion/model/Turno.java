@@ -10,6 +10,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 
 @Setter
@@ -24,8 +25,7 @@ public class Turno implements Serializable {
 
     @NotNull(message = "no puede estar vacio")
     @JsonFormat(pattern = "HH:mm:ss")
-    @Temporal(TemporalType.TIMESTAMP )
-    private Date hora;
+    private Time hora;
 
     @Enumerated(EnumType.STRING)
     private Estado estado;
