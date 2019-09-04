@@ -23,4 +23,9 @@ public class ItemPelicula implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="turno_id")
     private Turno turno;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="pelicula_id")
+    private Pelicula pelicula;
 }

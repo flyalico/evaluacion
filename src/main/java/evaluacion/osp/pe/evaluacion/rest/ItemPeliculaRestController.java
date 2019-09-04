@@ -1,10 +1,7 @@
 package evaluacion.osp.pe.evaluacion.rest;
 
-
-
-import evaluacion.osp.pe.evaluacion.model.Turno;
-
-import evaluacion.osp.pe.evaluacion.service.TurnoService;
+import evaluacion.osp.pe.evaluacion.model.ItemPelicula;
+import evaluacion.osp.pe.evaluacion.service.ItemPeliculaService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +16,19 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/turnos")
-public class TurnoRestController {
-    private static final Logger log = Logger.getLogger(TurnoRestController.class.getName());
-    private final TurnoService turnoService;
-    public TurnoRestController(TurnoService turnoService){
-        this.turnoService = turnoService;
+@RequestMapping("/api/itemsPeliculas")
+public class ItemPeliculaRestController {
+    private static final Logger log = Logger.getLogger(ItemPeliculaRestController.class.getName());
+    private final ItemPeliculaService itemPeliculaService;
+
+    public ItemPeliculaRestController(ItemPeliculaService itemPeliculaService){
+        this.itemPeliculaService = itemPeliculaService;
     }
     @PostMapping
-    public ResponseEntity<?> add(@Valid  @RequestBody Turno turno, BindingResult result){
-        Turno turnoNew = null;
+    public ResponseEntity<?> add(@Valid @RequestBody ItemPelicula itemPelicula, BindingResult result){
+        ItemPelicula itemPeliculaNew = null;
         Map<String, Object> response = new HashMap<>();
-        //System.out.println("HORA: "+turno.getHora());
-        //log.info("HORA HORA HORA: "+turno.getHora());
+
         if(result.hasErrors()){
 
             List<String> errors = result.getFieldErrors()
@@ -42,21 +39,23 @@ public class TurnoRestController {
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
         try{
-            turnoNew =turnoService.create(turno);
+            itemPeliculaNew =itemPeliculaService.create(itemPelicula);
         }catch(DataAccessException e){
             response.put("mensaje","Error al realizar el insert en la base de datos");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        response.put("mensaje", "El turno ha sido creado con exito");
-        response.put("turno", turnoNew);
+        response.put("mensaje", "El itemPelicula ha sido creado con exito");
+        response.put("itemPelicula", itemPeliculaNew);
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
     }
+
+
     @PutMapping(value="/{id}")
-    public ResponseEntity<?> modify(@Valid @RequestBody Turno turno, BindingResult result, @PathVariable Long id){
-        Turno turnoActual = turnoService.findById(id);
-        Turno turnoUpdated = null;
+    public ResponseEntity<?> modify(@Valid @RequestBody ItemPelicula itemPelicula, BindingResult result, @PathVariable Long id){
+        ItemPelicula itemPeliculaActual = itemPeliculaService.findById(id);
+        ItemPelicula itemPeliculaUpdated = null;
         Map<String, Object> response = new HashMap<>();
         if(result.hasErrors()){
             List<String> errors= result.getFieldErrors()
@@ -66,59 +65,34 @@ public class TurnoRestController {
             response.put("errors",errors);
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
-        if(turnoActual == null){
-            response.put("mensaje","Error: no se pudo editar, el pelicula ID: ".concat(id.toString().concat("no existe en la Base de datos!")));
+        if(itemPeliculaActual == null){
+            response.put("mensaje","Error: no se pudo editar, el itemPelicula ID: ".concat(id.toString().concat("no existe en la Base de datos!")));
             return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_FOUND);
         }
         try{
-            turnoActual.setHora(turno.getHora());
-            turnoActual.setEstado(turno.getEstado());
-           // turnoActual.setFecha(pelicula.getFecha());
-            turnoUpdated = turnoService.create(turnoActual);
+            itemPeliculaActual.setTurno(itemPelicula.getTurno());
+            itemPeliculaUpdated = itemPeliculaService.create(itemPeliculaActual);
         }catch (DataAccessException e){
-            response.put("mensaje", "Error al actualizar el turno en la base de datos");
+            response.put("mensaje", "Error al actualizar el itemPelicula en la base de datos");
             response.put("error ", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        response.put("mensaje","El turno ha sido actualizado con exito!");
-        response.put("turno", turnoUpdated);
+        response.put("mensaje","El itemPelicula ha sido actualizado con exito!");
+        response.put("itemPelicula", itemPeliculaUpdated);
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-    }
-
-    @GetMapping(value="/{id}")
-    public ResponseEntity<?> one(@PathVariable Long id){
-
-        Turno turno = null;
-        Map<String, Object> response = new HashMap<>();
-        try{
-            turno = turnoService.findById(id);
-        }catch (DataAccessException e){
-            response.put("mensaje","Error al realizar la consulta en la base de datos");
-            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<Map<String, Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        if(turno == null){
-            response.put("mensaje", "El turno ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<Turno>(turno, HttpStatus.OK);
     }
 
     @DeleteMapping(value="/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         Map<String, Object> response = new HashMap<>();
         try{
-            this.turnoService.delete(id);
+            this.itemPeliculaService.delete(id);
         }catch(DataAccessException e){
-            response.put("mensaje", "Error al eliminar el turno de la base de datos");
+            response.put("mensaje", "Error al eliminar el itemPelicula de la base de datos");
             response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        response.put("mensaje", "El turno ha sido eliminado con exito");
+        response.put("mensaje", "El itemPelicula ha sido eliminado con exito");
         return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
-    }
-    @GetMapping
-    public List<Turno> list(){
-        return this.turnoService.findAll();
     }
 }
