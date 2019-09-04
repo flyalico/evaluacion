@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 @Service
 public class ItemPeliculaService {
-    private static final Logger log = Logger.getLogger(TurnoService.class.getName());
+    private static final Logger log = Logger.getLogger(ItemPeliculaService.class.getName());
     private final ItemPeliculaRepository itemPeliculaRepository;
 
     public ItemPeliculaService(ItemPeliculaRepository itemPeliculaRepository){
