@@ -70,7 +70,7 @@ public class ItemPeliculaRestController {
             return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_FOUND);
         }
         try{
-            itemPeliculaActual.setTurno(itemPelicula.getTurno());
+           // itemPeliculaActual.setTurno(itemPelicula.getTurno());
             itemPeliculaUpdated = itemPeliculaService.create(itemPeliculaActual);
         }catch (DataAccessException e){
             response.put("mensaje", "Error al actualizar el itemPelicula en la base de datos");

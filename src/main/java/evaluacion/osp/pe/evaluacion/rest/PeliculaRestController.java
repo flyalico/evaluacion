@@ -73,9 +73,9 @@ public class PeliculaRestController {
             return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_FOUND);
         }
         try{
-            peliculaActual.setNombre(pelicula.getNombre());
-            peliculaActual.setEstado(pelicula.getEstado());
-            peliculaActual.setFecha(pelicula.getFecha());
+           // peliculaActual.setNombre(pelicula.getNombre());
+           // peliculaActual.setEstado(pelicula.getEstado());
+           // peliculaActual.setFecha(pelicula.getFecha());
             peliculaUpdated = peliculaService.create(peliculaActual);
         }catch (DataAccessException e){
             response.put("mensaje", "Error al actualizar al pelicula en la base de datos");
