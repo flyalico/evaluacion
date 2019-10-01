@@ -8,7 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+//author franko yalico
 @Setter
 @Getter
 @NoArgsConstructor

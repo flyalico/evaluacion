@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
-
+//author franko yalico
 @Setter
 @Getter
 @NoArgsConstructor
